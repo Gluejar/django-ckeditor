@@ -53,13 +53,9 @@ def get_thumb_filename(file_name):
     """
     return '%s_thumb%s' % os.path.splitext(file_name)
 
-def get_image_format(extension):
-    mimetypes.init()
-    return mimetypes.types_map[extension]
-
 def create_thumbnail(filename):
     thumbnail_filename = get_thumb_filename(filename)
-    thumbnail_format = get_image_format(os.path.splitext(filename)[1])
+    thumbnail_format = mimetypes.guess_type(filename)[0]
     pil_format = thumbnail_format.split('/')[1]
 
     image = default_storage.open(filename)
